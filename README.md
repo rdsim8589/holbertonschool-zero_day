@@ -1,2 +1,2 @@
 # holbertonschool-zero_day
-linux
+Linux
