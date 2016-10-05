@@ -1,2 +1,2 @@
 #!/bin/bash
-chmod ug-rwxXst o+rwxXst
+chmod 000 000 111
