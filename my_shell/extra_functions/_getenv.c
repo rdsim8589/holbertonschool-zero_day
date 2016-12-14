@@ -1,4 +1,4 @@
-#include "my_shell.c"
+#include "my_shell.h"
 
 /**
  * _strdup - copy a string
