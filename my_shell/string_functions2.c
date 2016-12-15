@@ -32,9 +32,9 @@ char *_strdup(char *str)
 /**
  * _strcmp - compare two strings
  * @s1: string one
- * @s2: string two
+ * @s2: const type string two
  *
- * Return: 1, or 0
+ * Return: 1 or 0
  */
 int _strcmp(char *s1, const char *s2)
 {
@@ -58,29 +58,28 @@ int _strcmp(char *s1, const char *s2)
 }
 
 /**
- * _getenv - get an environmental variable
- * @name: name of environmental variable
+ * readline - read given line using getline()
+ * @fd - file descriptor
  *
- * Return: pointer to the value in the environment, or NULL if no match
+ * Return: pointer to stored read string
  */
-char *_getenv(const char *name)
+char *readline(int fd)
 {
-	extern char **environ;
-	char *str;
-	size_t i, comp;
+	char *buffer, *line;
+	size_t input;
+	int max;
 
-	i  = 0;
-	while (environ[i])
-	{
-		str = _strdup(environ[i]);
-		str = strtok(str, "=");
-		comp = _strcmp(str, name);
-		if (comp == 0)
-		{
-			str = _strdup(strtok(NULL, "\0"));
-			return (str);
-		}
-		i++;
-	}
-	return (NULL);
+	/* max length of a given line */
+	max = 128;
+	buffer = malloc(sizeof(*buffer) * max);
+	if (buffer == NULL)
+		return (NULL);
+	input = getline(&buffer, &input, fd);
+	max = _strlen(buffer);
+	line = malloc(sizeof(*line) * max);
+	if (line == NULL)
+		return (NULL);
+	line = _strdup(buffer);
+	free(buffer);
+	return (line);
 }
