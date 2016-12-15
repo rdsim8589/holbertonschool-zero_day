@@ -19,6 +19,7 @@ char *readline(int fd);
 /* memory functions */
 char *_memset(char *s, char b, unsigned int n);
 void _free(char **c);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 /* environment functions */
 char *_getenv(const char *name);
 /* command functions */

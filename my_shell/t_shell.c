@@ -55,7 +55,7 @@ int main(int argc, char *argv[], char *env[])
 	{
 		write(1, "[MY_SHELL]$ ", 12);
 		line = readline(0);
-		command = strtok(line, " ");
+		com = strtok(line, " ");
 		_fork(command, env);
 		_free(command);
 		free(line);

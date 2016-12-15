@@ -58,7 +58,7 @@ int _strcmp(char *s1, const char *s2)
 }
 
 /**
- * readline - read given line using getline()
+ * readline - read given line
  * @fd - file descriptor
  *
  * Return: pointer to stored read string
@@ -66,17 +66,31 @@ int _strcmp(char *s1, const char *s2)
 char *readline(int fd)
 {
 	char *buffer, *line;
-	size_t input;
-	int max;
+	unsigned int max, max_plus, i;
+	char c;
 
 	/* max length of a given line */
 	max = 128;
 	buffer = malloc(sizeof(*buffer) * max);
 	if (buffer == NULL)
 		return (NULL);
-	input = getline(&buffer, &input, fd);
-	max = _strlen(buffer);
-	line = malloc(sizeof(*line) * max);
+	read(fd, &c, 1);
+	while (c != '\n')
+	{
+		if (i == max)
+		{
+			max_plus = max + 128;
+			buffer = _realloc(buffer, max, max_plus);
+			if (buffer == NULL)
+				return (NULL);
+			max = max_plus;
+		}
+		c = buffer[i];
+		i++;
+		read(fd, &c, 1);
+	}
+	buffer[i] = '\0';
+	line = malloc(sizeof(*line) * (i + 1));
 	if (line == NULL)
 		return (NULL);
 	line = _strdup(buffer);
