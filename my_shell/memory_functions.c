@@ -18,6 +18,25 @@ char *_memset(char *s, char b, unsigned int n)
 }
 
 /**
+ * _free - free called command
+ * @c: pointer to a pointer to command to be freed
+ *
+ * Return: void
+ */
+void _free(char **c)
+{
+	int i;
+
+	i = 0;
+	while(c[i])
+	{
+		free(c[i]);
+		i++;
+	}
+	free(c);
+}
+
+/**
  * _realloc - reallocate a memory block using malloc and free
  * @ptr: pointer to previously called memory (from malloc(old_size))
  * @old_size: size in bytes of memory for ptr

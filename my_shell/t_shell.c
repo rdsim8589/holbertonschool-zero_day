@@ -22,25 +22,6 @@ void _fork(char **c, char **env)
 }
 
 /**
- * _free - free called command
- * @c: pointer to a pointer to command to be freed
- *
- * Return: void
- */
-void _free(char **c)
-{
-	int i;
-
-	i = 0;
-	while(c[i])
-	{
-		free(c[i]);
-		i++;
-	}
-	free(c);
-}
-
-/**
  * main - my shell
  *
  * Return: 0
