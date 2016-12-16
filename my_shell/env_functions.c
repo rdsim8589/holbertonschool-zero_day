@@ -27,3 +27,26 @@ char *_getenv(const char *name)
 	}
 	return (NULL);
 }
+
+/**
+ * _fork - fork a command while maintaining main process
+ * @c: pointer to a pointer to a new command
+ * @env: pointer to an array of environmental variables
+ *
+ * Return: void
+ */
+void _fork(char **c, char **env)
+{
+	int i, f;
+
+	f = fork();
+	if (f == -1)
+		write(2, "Fail", 4);
+	/* check for write command failure */
+	else if (f == 0)
+		execve(c[0], c, env);
+	/* check for execve command failure */
+	else
+		wait(&i);
+	return;
+}
