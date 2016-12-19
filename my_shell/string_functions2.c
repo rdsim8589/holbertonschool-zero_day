@@ -1,6 +1,22 @@
 #include "my_shell.h"
 
 /**
+ * _cstrlen - helper function for builtins; find length of command
+ * @s: pointer to pointer to strin
+ *
+ * Return: length of s
+ */
+int _cstrlen(char **s)
+{
+	int l;
+
+	l = 0;
+	while (s[l])
+		l++;
+	return (l);
+}
+
+/**
  * _strdup - copy a string
  * @str: string
  *
@@ -59,7 +75,7 @@ int _strcmp(char *s1, const char *s2)
 
 /**
  * readline - read given line
- * @fd - file descriptor
+ * @fd: file descriptor
  *
  * Return: pointer to stored read string
  */
@@ -96,4 +112,39 @@ char *readline(int fd)
 	line = _strdup(buffer);
 	free(buffer);
 	return (line);
+}
+
+/**
+ * _atoi - convert string to integer
+ * @s: string to convert
+ *
+ * Return: integer
+ */
+int _atoi(char *s)
+{
+	int number, i, neg;
+
+	neg = 1;
+	i = number = 0;
+	while ((s[i] < '0' || s[i] > '9') && s[i] != 0)
+	{
+		if (s[i] == '-')
+			neg = neg * -1;
+		i++;
+	}
+	while ((s[i] >= '0' && s[i] <= '9') && s[i] != 0)
+	{
+		if (number >= 0)
+		{
+			number = number * 10 - (s[i] - '0');
+			i++;
+		}
+		else
+		{
+			number = number * 10 - (s[i] - '0');
+			i++;
+		}
+	}
+	neg = neg * -1;
+	return (number * neg);
 }
