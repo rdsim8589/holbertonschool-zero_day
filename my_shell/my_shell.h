@@ -22,7 +22,9 @@ void _free(char **c);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 /* environment functions */
 char *_getenv(const char *name);
-/* command functions */
 void _fork(char **c, char **env);
+int seg_num(char *line, char sep);
+int seg_strlen(char *line, char sep);
+char **_strtok(char *line, char sep);
 
 #endif /* #ifndef MY_SHELL */

@@ -48,7 +48,6 @@ void _fork(char **c, char **env)
 	/* check for execve command failure */
 	else
 		wait(&i);
-	return;
 }
 
 /**
@@ -61,8 +60,9 @@ void _fork(char **c, char **env)
 int seg_num(char *line, char sep)
 {
 	int i;
+
 	if (line == NULL)
-		return;
+		return (-1);
 	i = 0;
 	while (*line)
 	{
@@ -105,24 +105,34 @@ char **_strtok(char *line, char sep)
 {
 	char **token;
 	char *ptr;
-	int num, len, temp;
+	int num, len;
 
 	num = seg_num(line, sep);
-	if (num == NULL)
+	if (num <= 0)
 		return (NULL);
-	else if (num == 0)
-	{
-		token = malloc(sizeof(char *) + 1);
-		token[0] == NULL;
-		return (token);
-	}
 	/* +2 for initial char value and trailing '\0' */
-	token = malloc(sizeof(char *) * 2);
+	token = malloc(sizeof(char *) * (num + 2));
+	if (token == NULL)
+		return (NULL);
+	num = 0;
 	while (*line)
 	{
 		while (*line == sep)
 			line++;
 		len = seg_strlen(line, sep);
-token[len] = 
+		token[num] = malloc(sizeof(*ptr) * (len + 1));
+		ptr = token[num];
+		while (*line && *line != sep)
+		{
+			*ptr = *line;
+			ptr++;
+			line++;
+		}
+		while (*line == sep)
+			line++;
+		*ptr = 0;
+		num++;
 	}
+	token[num] = 0;
+	return (token);
 }

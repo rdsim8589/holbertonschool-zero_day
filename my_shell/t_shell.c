@@ -17,7 +17,7 @@ int main(__attribute__((unused))int argc, __attribute__((unused))char *argv[],
 		write(1, "[MY_SHELL]$ ", 12);
 		line = readline(0);
 		/* write own strtok function to split string */
-		command = strtok(line, " ");
+		command = _strtok(line, ' ');
 		_fork(command, env);
 		_free(command);
 		free(line);
