@@ -50,3 +50,79 @@ void _fork(char **c, char **env)
 		wait(&i);
 	return;
 }
+
+/**
+ * seg_num - helper function for _strtok; finds number of segments
+ * @line: pointer to line being split
+ * @sep: value evaluated as a separator
+ *
+ * Return: number of segments in @line
+ */
+int seg_num(char *line, char sep)
+{
+	int i;
+	if (line == NULL)
+		return;
+	i = 0;
+	while (*line)
+	{
+		while (*line == sep)
+			line++;
+		if (*line == '\0')
+			break;
+		while (*line && *line != '\0')
+			line++;
+		i++;
+	}
+	return (i);
+}
+
+/**
+ * seg_strlen - helper function for _strtok; finds length of each segment
+ * @line: segment being evaluated
+ * @sep: value evaluated as a separator
+ *
+ * Return: length of segment
+ */
+int seg_strlen(char *line, char sep)
+{
+	int i;
+
+	i = 0;
+	while (line[i] && line[i] != sep)
+		i++;
+	return (i);
+}
+
+/**
+ * _strtok - split a string into a sequence of tokens
+ * @line: line being split
+ * @sep: value being used as separator
+ *
+ * Return: pointer to an array of tokens
+ */
+char **_strtok(char *line, char sep)
+{
+	char **token;
+	char *ptr;
+	int num, len, temp;
+
+	num = seg_num(line, sep);
+	if (num == NULL)
+		return (NULL);
+	else if (num == 0)
+	{
+		token = malloc(sizeof(char *) + 1);
+		token[0] == NULL;
+		return (token);
+	}
+	/* +2 for initial char value and trailing '\0' */
+	token = malloc(sizeof(char *) * 2);
+	while (*line)
+	{
+		while (*line == sep)
+			line++;
+		len = seg_strlen(line, sep);
+token[len] = 
+	}
+}
