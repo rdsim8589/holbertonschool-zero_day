@@ -6,25 +6,37 @@
  *
  * Return: pointer to the value in the environment, or NULL if no match
  */
-char *_getenv(const char *name)
+char *_getenv(char *c, char **env)
 {
-	extern char **environ;
-	char *str;
-	size_t i, comp;
+	int i;
+	char *str, *temp;
+	char **var;
 
 	i  = 0;
-	while (environ[i])
+	while (env[i])
 	{
-		str = _strdup(environ[i]);
-		str = strtok(str, "=");
-		comp = _strcmp(str, name);
+		str = _strdup(env[i]);
+		if (str == NULL)
+			return (NULL);
+		var = _strtok(str, "=");
+		/* check _strtok fail */
+		comp = _strcmp(var[0], c);
+		/* check _strcmp fail */
 		if (comp == 0)
 		{
-			str = _strdup(strtok(NULL, "\0"));
+			temp = env[i];
+			while (*temp != '=')
+				temp++;
+			temp++;
+			str = _strdup(temp);
+			if (str == NULL)
+				return (NULL);
+			_free(var);
 			return (str);
 		}
 		i++;
 	}
+	_free(var);
 	return (NULL);
 }
 
@@ -35,19 +47,38 @@ char *_getenv(const char *name)
  *
  * Return: void
  */
-void _fork(char **c, char **env)
+void _fork(char **command, char ***env)
 {
 	int i, f;
+	char *c;
 
+	c = command[0];
+	/* check if command is builtin */
+	if (_builtin(command, env))
+		return;
+	c = find_path(c, *env);
+	if (c == NULL)
+	{
+		write(2, command[0], _strlen(command[0]));
+		write(2, ": not found\n", 12);
+		/* check write failure */
+		return;
+	}
+	/* initiate child process */
 	f = fork();
 	if (f == -1)
 		write(2, "Fail", 4);
-	/* check for write command failure */
+	/* check for write failure */
 	else if (f == 0)
 		execve(c[0], c, env);
 	/* check for execve command failure */
 	else
+	{
 		wait(&i);
+		update_status(status, env); /* write this function */
+	}
+	free(c);
+	return;
 }
 
 /**

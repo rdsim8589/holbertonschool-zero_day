@@ -7,7 +7,7 @@
  *
  * Return: 1 if builtin, 0 otherwise
  */
-int _builtin(char **command, char **env)
+int _builtin(char **command, char ***env)
 {
 	if (_bstrcomp(command[0], "exit") == 0)
 	{
@@ -53,7 +53,7 @@ int main(__attribute__((unused))int argc, __attribute__((unused))char *argv[],
 			continue;
 		}
 		free(line);
-		_fork(command, env);
+		_fork(command, &env);
 		_free(command);
 	}
 }
