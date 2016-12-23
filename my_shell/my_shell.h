@@ -33,10 +33,14 @@ int seg_num(char *line, char sep);
 int seg_strlen(char *line, char sep);
 char **_strtok(char *line, char sep);
 /* environment_functions2 */
+char **init_env(char ***env);
+void create_env(char *name, char *value, char *new);
+int val_location(char **env, char *comp);
+void env_set(char *name, char *env_val, char ***env);
 void env_update(int current, char ***env);
 /* builtin_functions */
 int _bstrcomp(char *s1, char *s2);
-void _exit(char **command, char **env);
+void t_exit(char **command, char ***env);
 /* path_functions */
 void *find_path(char *command, __attribute__((unused)) char **env);
 int check_path(char *c);

@@ -35,14 +35,17 @@ int _bstrcomp(char *s1, char *s2)
  *
  * Return: void
  */
-void _exit(char **command, char **env)
+void t_exit(char **command, char ***env)
 {
 	int argv;
+	char **temp;
 
-	_free(env);
+	temp = *env;
+	_free(temp);
 	if (_cstrlen(command) <= 1)
 	{
 		_free(command);
+		write(1, "exiting\n", 8);
 		exit(0);
 	}
 	argv = _atoi(command[1]);

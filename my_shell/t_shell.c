@@ -11,7 +11,7 @@ int _builtin(char **command, char ***env)
 {
 	if (_bstrcomp(command[0], "exit") == 0)
 	{
-		_exit(command, env);
+		t_exit(command, env);
 		return (1);
 	}
 	/* add cases for "pwd", "cd", "env" */
@@ -31,6 +31,9 @@ int main(__attribute__((unused))int argc, __attribute__((unused))char *argv[],
 {
 	char **command;
 	char *line;
+
+	/* address environmental variables */
+	init_env(&env);
 
 	/* read input from stdin */
 	while (1)
@@ -56,4 +59,5 @@ int main(__attribute__((unused))int argc, __attribute__((unused))char *argv[],
 		_fork(command, &env);
 		_free(command);
 	}
+	return (0);
 }
