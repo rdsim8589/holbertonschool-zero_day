@@ -1,2 +1,0 @@
-#!/bin/bash
-cp -s /bin/ls ./__ls__
