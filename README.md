@@ -1,9 +1,6 @@
 #The Zero Day
 Directory descriptions
 
-##Vagrant
-
-
 ##0x00-vagrant:
 Assignments to learn what vagrant does, and what is a virtual machine.
 
